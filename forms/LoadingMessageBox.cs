@@ -42,7 +42,7 @@ namespace ScreenCaptureOCR.forms
             this.ShowInTaskbar = false;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Icon = Properties.Resources.appicon;
+            this.Icon = Properties.Resources.appicon1;
             this.Text = message;
             // 设置消息框大小为指定的大小
             this.Size = new Size(parentForm.Width - 100, parentForm.Width - 100);

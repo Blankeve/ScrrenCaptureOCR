@@ -36,12 +36,10 @@ namespace ScreenCaptureOCR
         public ContextMenuStrip contextMenuStrip;
         private bool isFormVisible = false;
         private LoadingMessageBox messageBox;
-        private NotifyMessageBox notify;
         private SoundPlayer soundPlayer;
         private LogForm logForm = LogForm.GetInstance();
         private SupportForm supportForm;
         private EditForm editForm;
-        private GlobalKeyboardHook keyboardHook;
 
         public FormMain()
         {
@@ -105,7 +103,7 @@ namespace ScreenCaptureOCR
             supportMenuItem.ForeColor = Color.White;
             supportMenuItem.Click += SupportMenuItem_Click;
 
-            contextMenuStrip.Items.Add(supportMenuItem);
+            // contextMenuStrip.Items.Add(supportMenuItem);
             contextMenuStrip.Items.Add(autoStartMenuItem);
             contextMenuStrip.Items.Add(openMenuItem);
             contextMenuStrip.Items.Add(exitMenuItem);
@@ -117,10 +115,15 @@ namespace ScreenCaptureOCR
             notifyIconMain.MouseClick += notifyIconMain_MouseClick;
 
             // 设置ContextMenuStrip的属性以使其更美观
-            contextMenuStrip.Renderer = new ToolStripProfessionalRenderer(new DarkColor());
+            contextMenuStrip.Renderer = new ToolStripProfessionalRenderer(new LightColor());
             contextMenuStrip.Font = new Font("Segoe UI", 10);
-            contextMenuStrip.BackColor = Color.White;
-            contextMenuStrip.ForeColor = Color.Black;
+
+            // 逐项设置颜色
+            foreach (ToolStripMenuItem item in contextMenuStrip.Items)
+            {
+                item.BackColor = Color.White;
+                item.ForeColor = Color.Black;
+            }
         }
 
         private void notifyIconMain_MouseClick(object sender, MouseEventArgs e)
@@ -164,12 +167,12 @@ namespace ScreenCaptureOCR
             }
             if (autoStartMenuItemChecked)
             {
-                notify.ShowDialog("已设置开机启动");
+                NotifyMessageBox.ShowDialog("已设置开机启动");
                 Regedit.RegisterStartup(appTitle);
             }
             else
             {
-                notify.ShowDialog("已关闭开机启动");
+                NotifyMessageBox.ShowDialog("已关闭开机启动");
                 Regedit.UnregisterStartup(appTitle);
             }
             SaveAppConfig();
@@ -238,7 +241,6 @@ namespace ScreenCaptureOCR
                                     // 创建并设置全局键盘钩子
             this.KeyDown += FormMain_PreviewKeyDown;
             this.FormClosing += FormMain_FormClosing;
-            notify = new NotifyMessageBox(this);
             supportForm = new SupportForm(this);
             PlayStartupSound();
             LoadAppConfig();
@@ -262,7 +264,7 @@ namespace ScreenCaptureOCR
             }
             catch (Exception ex)
             {
-                notify.ShowFailedDialog("无法播放启动音效！");
+                NotifyMessageBox.ShowFailedDialog("无法播放启动音效！");
             }
         }
 
@@ -295,10 +297,7 @@ namespace ScreenCaptureOCR
         {
             if (this.WindowState == FormWindowState.Minimized)
             {
-                if (isFormVisible)
-                {
-                    notify.ShowDialog("已最小化到右下角");
-                }
+                NotifyMessageBox.ShowDialog("已最小化到右下角");
                 Animation.AnimateWindow(this.Handle, 500, Animation.AW_SLIDE | Animation.AW_VER_POSITIVE | Animation.AW_ACTIVATE | 0x00010000);
                 this.Hide();
                 notifyIconMain.Visible = true;
@@ -426,7 +425,7 @@ namespace ScreenCaptureOCR
         private async void FormMain_Load(object sender, EventArgs e)
         {
             await Task.Delay(500); // 等待 500 毫秒
-            notify.ShowDialog("欢迎使用");
+            NotifyMessageBox.ShowDialog("欢迎使用");
         }
 
         private void BtnLoadImage_Click(object sender, EventArgs e)
@@ -467,7 +466,7 @@ namespace ScreenCaptureOCR
             }
             if (dialogResult == DialogResult.Cancel)
             {
-                notify.ShowDialog("您已取消操作");
+                NotifyMessageBox.ShowDialog("您已取消操作");
             }
 
         }
@@ -510,10 +509,10 @@ namespace ScreenCaptureOCR
                         messageBox.Show();
                     }));
                 }
-                if (dialogResult == DialogResult.Cancel)
+                else if (dialogResult == DialogResult.Cancel)
                 {
                     this.Show();
-                    notify.ShowDialog("您已取消操作");
+                    NotifyMessageBox.ShowDialog("您已取消操作");
                     if (!(editForm == null || editForm.IsDisposed))
                     {
                         // 显示编辑框
@@ -557,11 +556,11 @@ namespace ScreenCaptureOCR
                     messageBox.Close();
                     if (string.IsNullOrEmpty(resultText))
                     {
-                        notify.ShowFailedDialog("识别失败！");
+                        NotifyMessageBox.ShowFailedDialog("识别失败！");
                     }
                     else
                     {
-                        notify.ShowSuccessDialog("识别成功！");
+                        NotifyMessageBox.ShowSuccessDialog("识别成功！");
                         // 检查编辑框是否已经实例化，如果没有，则实例化一个新的编辑框
                         if (editForm == null || editForm.IsDisposed)
                         {

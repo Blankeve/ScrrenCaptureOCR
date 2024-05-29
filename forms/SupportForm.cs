@@ -20,7 +20,7 @@ namespace ScreenCaptureOCR.forms
             InitializeComponent();
             this.parentForm = parentForm; // 记录父窗体
             SetupImage();
-            SetupMessageBox(parentForm);
+            SetupMessageBox();
         }
 
         private void SetupImage()
@@ -28,13 +28,13 @@ namespace ScreenCaptureOCR.forms
             // 创建一个PictureBox控件来显示GIF动画
             pictureBoxBackground = new PictureBox();
             pictureBoxBackground.Dock = DockStyle.Fill;
-            pictureBoxBackground.Image = Properties.Resources.zfpay;
+            //pictureBoxBackground.Image = Properties.Resources.zfpay;
             SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.AllPaintingInWmPaint | ControlStyles.UserPaint, true);
             pictureBoxBackground.SizeMode = PictureBoxSizeMode.StretchImage;
             this.Controls.Add(pictureBoxBackground);
         }
 
-        private void SetupMessageBox(Form parentForm)
+        private void SetupMessageBox()
         {
             // 禁止窗体调整大小
             this.FormBorderStyle = FormBorderStyle.FixedSingle;
@@ -42,10 +42,15 @@ namespace ScreenCaptureOCR.forms
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Icon = Properties.Resources.support;
-            this.Text = "觉得好用请我包辣条呗";
+            this.Text = "";
             // 设置消息框大小为指定的大小
             this.Size = new Size(parentForm.Width - 100, parentForm.Width - 100);
-            // 设置消息框居中显示
+/*            this.TransparencyKey = Color.Transparent; // 设置透明色
+*/            this.TopMost = true; // 显示在最顶层
+        }
+
+        private void SupportForm_Load(object sender, EventArgs e)
+        {
             this.StartPosition = FormStartPosition.Manual;
 
             // 计算子窗体的位置，使其在父窗体的中间显示
@@ -53,13 +58,6 @@ namespace ScreenCaptureOCR.forms
                 parentForm.Location.X + (parentForm.Width - this.Width) / 2,
                 parentForm.Location.Y + (parentForm.Height - this.Height) / 2
             );
-
-/*            this.TransparencyKey = Color.Transparent; // 设置透明色
-*/            this.TopMost = true; // 显示在最顶层
-        }
-
-        private void SupportForm_Load(object sender, EventArgs e)
-        {
 
         }
     }

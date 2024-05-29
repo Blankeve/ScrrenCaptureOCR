@@ -52,6 +52,9 @@
     <ErrorReport>prompt</ErrorReport>
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
@@ -69,7 +72,7 @@
   <ItemGroup>
     <Compile Include="animation\Animation.cs" />
     <Compile Include="app\AppInfo.cs" />
-    <Compile Include="color\DarkColor.cs" />
+    <Compile Include="color\LightColor.cs" />
     <Compile Include="custom_components\BorderedLabel.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -169,6 +172,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <None Include="app.manifest" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -297,6 +301,18 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\赞助.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\识别.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\关闭 %281%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\关闭 %282%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\控制中心_关闭.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -37,6 +37,7 @@
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Name = "NotifyMessageBox";
             this.Text = "NotifyMessageBox";
+            this.Load += new System.EventHandler(this.NotifyMessageBox_Load);
             this.ResumeLayout(false);
 
         }

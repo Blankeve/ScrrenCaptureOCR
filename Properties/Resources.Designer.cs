@@ -81,6 +81,16 @@ namespace ScreenCaptureOCR.Properties {
         }
         
         /// <summary>
+        ///   查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Icon appicon1 {
+            get {
+                object obj = ResourceManager.GetObject("appicon1", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
         internal static System.Drawing.Bitmap background {
@@ -236,16 +246,6 @@ namespace ScreenCaptureOCR.Properties {
         internal static System.Drawing.Bitmap uploadimg {
             get {
                 object obj = ResourceManager.GetObject("uploadimg", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
-        /// </summary>
-        internal static System.Drawing.Bitmap zfpay {
-            get {
-                object obj = ResourceManager.GetObject("zfpay", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
